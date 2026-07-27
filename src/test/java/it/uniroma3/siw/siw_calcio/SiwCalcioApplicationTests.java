@@ -1,4 +1,4 @@
-package it.uniroma3.siw_calcio;
+package it.uniroma3.siw.siw_calcio;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

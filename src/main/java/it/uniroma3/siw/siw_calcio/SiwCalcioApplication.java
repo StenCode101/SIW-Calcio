@@ -1,4 +1,4 @@
-package it.uniroma3.siw_calcio;
+package it.uniroma3.siw.siw_calcio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
