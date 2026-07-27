@@ -3,7 +3,7 @@ package it.uniroma3.siw.siw_calcio.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "utenti") // "user" in PostgreSQL è spesso una parola riservata, quindi è meglio chiamare la tabella "utenti"
+@Table(name = "utenti") 
 public class Utente {
 
     @Id
