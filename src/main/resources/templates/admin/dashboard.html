@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - SIW Calcio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a th:href="@{/}">⚽ SIW Calcio (Admin)</a></div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Torna al Sito</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h2 style="color: var(--danger);">Pannello di Amministrazione</h2>
+        <p>Benvenuto nell'area riservata. Da qui puoi gestire il sistema.</p>
+        
+        <div class="features" style="margin-top: 20px;">
+            <div class="card">
+                <h3>➕ Nuovo Torneo</h3>
+                <button class="btn btn-outline">Aggiungi</button>
+            </div>
+            <div class="card">
+                <h3>➕ Nuova Squadra</h3>
+                <button class="btn btn-outline">Aggiungi</button>
+            </div>
+            <div class="card">
+                <h3>⚖️ Gestione Arbitri</h3>
+                <button class="btn btn-outline">Gestisci</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

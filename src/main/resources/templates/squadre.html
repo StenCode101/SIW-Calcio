@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Squadre - SIW Calcio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a th:href="@{/}">⚽ SIW Calcio</a></div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h2>Le Squadre</h2>
+        <div class="features" style="margin-top: 20px;">
+            <div class="card" th:each="squadra : ${squadre}">
+                <h3 th:text="${squadra.nome}">Nome Squadra</h3>
+                <p><strong>Città:</strong> <span th:text="${squadra.citta}">Roma</span></p>
+                <p><strong>Fondazione:</strong> <span th:text="${squadra.annoDiFondazione}">2010</span></p>
+                <a href="#" class="card-link">Vedi Giocatori</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

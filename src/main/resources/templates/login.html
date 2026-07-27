@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Accedi - SIW Calcio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a th:href="@{/}">⚽ SIW Calcio</a></div>
+    </nav>
+
+    <main class="container" style="max-width: 400px; margin: auto;">
+        <div class="card">
+            <h2>Accedi</h2>
+            <form th:action="@{/login}" method="post" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                <!-- Messaggio di errore automatico di Spring Security -->
+                <div th:if="${param.error}" style="color: red;">Credenziali non valide. Riprova.</div>
+                
+                <div>
+                    <label>Username</label><br>
+                    <input type="text" name="username" required style="width: 100%; padding: 8px;">
+                </div>
+                <div>
+                    <label>Password</label><br>
+                    <input type="password" name="password" required style="width: 100%; padding: 8px;">
+                </div>
+                <button type="submit" class="btn btn-primary">Entra</button>
+            </form>
+            <p style="margin-top: 15px;">Non hai un account? <a th:href="@{/register}">Registrati</a></p>
+        </div>
+    </main>
+</body>
+</html>

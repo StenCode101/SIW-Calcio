@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tornei - SIW Calcio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a th:href="@{/}">⚽ SIW Calcio</a></div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h2>Elenco Tornei</h2>
+        <!-- La tabella si popolerà dinamicamente se c'è una lista 'tornei' passata dal controller -->
+        <table style="width: 100%; text-align: left; margin-top: 20px;" border="1">
+            <thead>
+                <tr>
+                    <th>Nome Torneo</th>
+                    <th>Anno</th>
+                    <th>Descrizione</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="torneo : ${tornei}">
+                    <td th:text="${torneo.nome}">Campionato Estivo</td>
+                    <td th:text="${torneo.anno}">2026</td>
+                    <td th:text="${torneo.descrizione}">Torneo a 8 squadre</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

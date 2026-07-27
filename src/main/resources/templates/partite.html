@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendario Partite - SIW Calcio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a th:href="@{/}">⚽ SIW Calcio</a></div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h2>Calendario e Risultati</h2>
+        <table style="width: 100%; text-align: center; margin-top: 20px;" border="1">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Squadra Casa</th>
+                    <th>Risultato</th>
+                    <th>Squadra Trasferta</th>
+                    <th>Stato</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="partita : ${partite}">
+                    <td th:text="${#temporals.format(partita.dataEOra, 'dd/MM/yyyy HH:mm')}">10/08/2026</td>
+                    <td th:text="${partita.squadraCasa.nome}">Squadra A</td>
+                    <td>
+                        <span th:text="${partita.goalsHome}">0</span> - <span th:text="${partita.goalsAway}">0</span>
+                    </td>
+                    <td th:text="${partita.squadraTrasferta.nome}">Squadra B</td>
+                    <td th:text="${partita.stato}">SCHEDULED</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
