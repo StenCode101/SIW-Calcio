@@ -4,14 +4,14 @@
 
 :root {
   /* Colore */
-  --pitch-night: #0F2E1D;
-  --pitch: #1B4332;
-  --grass: #52B788;
-  --grass-light: #B7E4C7;
+  --night: #12141C;
+  --navy: #1E2A4A;
+  --sky: #6EA8D8;
+  --sky-light: #C7DEF2;
   --chalk: #F7F9F4;
   --chalk-dim: #ECEFE7;
-  --ink: #10241A;
-  --ink-soft: #3F5449;
+  --ink: #14171C;
+  --ink-soft: #454A52;
   --gold: #E9B44C;
   --gold-dark: #C9932E;
   --red-card: #C1272D;
@@ -52,7 +52,7 @@ h1, h2, h3 {
   letter-spacing: 0.02em;
   line-height: 1.05;
   margin: 0 0 0.5em;
-  color: var(--pitch-night);
+  color: var(--night);
 }
 
 p { margin: 0 0 1em; color: var(--ink-soft); }
@@ -90,7 +90,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .btn-primary {
   background: var(--gold);
-  color: var(--pitch-night);
+  color: var(--night);
   border-color: var(--gold);
 }
 .btn-primary:hover {
@@ -143,7 +143,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   justify-content: space-between;
   gap: 1.5rem;
   padding: 0.9rem 2rem;
-  background: var(--pitch-night);
+  background: var(--night);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -179,8 +179,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 
 .nav-links > li > a:not(.btn):hover {
-  color: var(--grass-light);
-  border-bottom-color: var(--grass);
+  color: var(--sky-light);
+  border-bottom-color: var(--sky);
 }
 
 .user-greeting {
@@ -205,7 +205,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   overflow: hidden;
   background:
     radial-gradient(circle at 50% 120%, rgba(82, 183, 136, 0.25), transparent 60%),
-    linear-gradient(180deg, var(--pitch-night) 0%, var(--pitch) 100%);
+    linear-gradient(180deg, var(--night) 0%, var(--navy) 100%);
   padding: 6rem 2rem 7rem;
   text-align: center;
 }
@@ -218,8 +218,8 @@ ul { list-style: none; margin: 0; padding: 0; }
   pointer-events: none;
   opacity: 0.16;
   background-image:
-    radial-gradient(circle at 50% 100%, transparent 0, transparent 118px, var(--grass-light) 119px, var(--grass-light) 121px, transparent 122px),
-    linear-gradient(0deg, transparent 0, transparent calc(100% - 2px), var(--grass-light) calc(100% - 2px), var(--grass-light) 100%);
+    radial-gradient(circle at 50% 100%, transparent 0, transparent 118px, var(--sky-light) 119px, var(--sky-light) 121px, transparent 122px),
+    linear-gradient(0deg, transparent 0, transparent calc(100% - 2px), var(--sky-light) calc(100% - 2px), var(--sky-light) 100%);
   background-position: center bottom, center bottom;
   background-repeat: no-repeat;
 }
@@ -294,19 +294,19 @@ ul { list-style: none; margin: 0; padding: 0; }
   font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--pitch);
+  color: var(--navy);
   display: inline-block;
   transition: color var(--transition), transform var(--transition);
 }
 
 .card-link:hover {
-  color: var(--grass);
+  color: var(--sky);
   transform: translateX(3px);
 }
 
 /* ---------- Footer ---------- */
 footer {
-  background: var(--pitch-night);
+  background: var(--night);
   color: var(--chalk-dim);
   text-align: center;
   padding: 1.8rem 2rem;
