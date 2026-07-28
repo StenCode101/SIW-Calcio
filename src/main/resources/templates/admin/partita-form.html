@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="[http://www.thymeleaf.org](http://www.thymeleaf.org)">
+<head><title>Registra Partita</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+    <div class="container" style="max-width: 500px; margin-top: 50px;">
+        <h2>Nuova Partita</h2>
+        <form th:action="@{/admin/partita/salva}" th:object="${partita}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            
+            <label>Data e Ora:</label>
+            <input type="datetime-local" th:field="*{dataEOra}" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label>Torneo:</label>
+            <select th:field="*{torneo}" required style="width: 100%; margin-bottom: 15px;">
+                <option th:each="t : ${tornei}" th:value="${t.id}" th:text="${t.nome}"></option>
+            </select><br>
+
+            <label>Squadra Casa:</label>
+            <select th:field="*{squadraCasa}" required style="width: 100%; margin-bottom: 15px;">
+                <option th:each="sq : ${squadre}" th:value="${sq.id}" th:text="${sq.nome}"></option>
+            </select><br>
+
+            <label>Squadra Trasferta:</label>
+            <select th:field="*{squadraTrasferta}" required style="width: 100%; margin-bottom: 15px;">
+                <option th:each="sq : ${squadre}" th:value="${sq.id}" th:text="${sq.nome}"></option>
+            </select><br>
+
+            <button type="submit" class="btn btn-primary">Registra Partita</button>
+            <a th:href="@{/admin/dashboard}">Annulla</a>
+        </form>
+    </div>
+</body>
+</html>

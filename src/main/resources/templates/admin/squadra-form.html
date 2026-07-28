@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="[http://www.thymeleaf.org](http://www.thymeleaf.org)">
+<head><title>Gestione Squadra</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+    <div class="container" style="max-width: 500px; margin-top: 50px;">
+        <h2>Gestione Squadra</h2>
+        <form th:action="@{/admin/squadra/salva}" th:object="${squadra}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <label>Nome Squadra:</label>
+            <input type="text" th:field="*{nome}" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label>Città:</label>
+            <input type="text" th:field="*{citta}" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label>Anno Fondazione:</label>
+            <input type="number" th:field="*{annoDiFondazione}" style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <button type="submit" class="btn btn-primary">Salva Squadra</button>
+            <a th:href="@{/admin/dashboard}">Annulla</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="[http://www.thymeleaf.org](http://www.thymeleaf.org)">
+<head><title>Gestione Giocatore</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+    <div class="container" style="max-width: 500px; margin-top: 50px;">
+        <h2>Gestione Giocatore</h2>
+        <form th:action="@{/admin/giocatore/salva}" th:object="${giocatore}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome}" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label>Cognome:</label>
+            <input type="text" th:field="*{cognome}" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label>Ruolo:</label>
+            <input type="text" th:field="*{ruolo}" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label>Assegna a Squadra:</label>
+            <select th:field="*{squadra}" style="width: 100%; margin-bottom: 15px;">
+                <option value="">Nessuna</option>
+                <option th:each="sq : ${squadre}" th:value="${sq.id}" th:text="${sq.nome}"></option>
+            </select><br>
+            
+            <button type="submit" class="btn btn-primary">Salva Giocatore</button>
+            <a th:href="@{/admin/dashboard}">Annulla</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="[http://www.thymeleaf.org](http://www.thymeleaf.org)">
+<head><title>Inserisci Risultato</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body>
+    <div class="container" style="max-width: 500px; margin-top: 50px;">
+        <h2>Inserimento Risultato</h2>
+        <p th:text="${partita.squadraCasa.nome + ' vs ' + partita.squadraTrasferta.nome}"></p>
+        
+        <form th:action="@{/admin/partita/salva-risultato}" th:object="${partita}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            
+            <label th:text="'Goal ' + ${partita.squadraCasa.nome} + ':'"></label>
+            <input type="number" th:field="*{goalsHome}" required min="0" style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label th:text="'Goal ' + ${partita.squadraTrasferta.nome} + ':'"></label>
+            <input type="number" th:field="*{goalsAway}" required min="0" style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <button type="submit" class="btn btn-primary">Salva Risultato</button>
+            <a th:href="@{/admin/dashboard}">Annulla</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,35 +1,85 @@
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="[http://www.thymeleaf.org](http://www.thymeleaf.org)">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard - SIW Calcio</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .admin-section { margin-top: 40px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .btn-sm { padding: 4px 8px; font-size: 12px; border-radius: 4px; text-decoration: none; color: black; border: 1px solid black; }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo"><a th:href="@{/}">⚽ SIW Calcio (Admin)</a></div>
-        <ul class="nav-links">
-            <li><a th:href="@{/}">Torna al Sito</a></li>
-        </ul>
+        <ul class="nav-links"><li><a th:href="@{/}">Torna al Sito</a></li></ul>
     </nav>
 
     <main class="container">
-        <h2 style="color: var(--danger);">Pannello di Amministrazione</h2>
-        <p>Benvenuto nell'area riservata. Da qui puoi gestire il sistema.</p>
-        
-        <div class="features" style="margin-top: 20px;">
-            <div class="card">
-                <h3>➕ Nuovo Torneo</h3>
-                <button class="btn btn-outline">Aggiungi</button>
-            </div>
-            <div class="card">
-                <h3>➕ Nuova Squadra</h3>
-                <button class="btn btn-outline">Aggiungi</button>
-            </div>
-            <div class="card">
-                <h3>⚖️ Gestione Arbitri</h3>
-                <button class="btn btn-outline">Gestisci</button>
-            </div>
+        <h2>Pannello di Amministrazione</h2>
+
+        <!-- SEZIONE TORNEI -->
+        <div class="admin-section">
+            <h3>Tornei <a th:href="@{/admin/torneo/nuovo}" class="btn-sm">+ Aggiungi</a></h3>
+            <table>
+                <tr><th>Nome</th><th>Anno</th><th>Azioni</th></tr>
+                <tr th:each="t : ${tornei}">
+                    <td th:text="${t.nome}"></td>
+                    <td th:text="${t.anno}"></td>
+                    <td><a th:href="@{'/admin/torneo/modifica/' + ${t.id}}" class="btn-sm">Modifica</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SEZIONE SQUADRE -->
+        <div class="admin-section">
+            <h3>Squadre <a th:href="@{/admin/squadra/nuova}" class="btn-sm">+ Aggiungi</a></h3>
+            <table>
+                <tr><th>Nome</th><th>Città</th><th>Azioni</th></tr>
+                <tr th:each="s : ${squadre}">
+                    <td th:text="${s.nome}"></td>
+                    <td th:text="${s.citta}"></td>
+                    <td>
+                        <a th:href="@{'/admin/squadra/modifica/' + ${s.id}}" class="btn-sm">Modifica</a>
+                        <a th:href="@{'/admin/squadra/elimina/' + ${s.id}}" class="btn-sm" style="color: red; border-color: red;" onclick="return confirm('Sicuro di eliminare?');">Elimina</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SEZIONE GIOCATORI -->
+        <div class="admin-section">
+            <h3>Giocatori <a th:href="@{/admin/giocatore/nuovo}" class="btn-sm">+ Aggiungi</a></h3>
+            <table>
+                <tr><th>Nome</th><th>Cognome</th><th>Squadra</th><th>Azioni</th></tr>
+                <tr th:each="g : ${giocatori}">
+                    <td th:text="${g.nome}"></td>
+                    <td th:text="${g.cognome}"></td>
+                    <td th:text="${g.squadra != null ? g.squadra.nome : 'Nessuna'}"></td>
+                    <td><a th:href="@{'/admin/giocatore/modifica/' + ${g.id}}" class="btn-sm">Modifica</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SEZIONE PARTITE -->
+        <div class="admin-section">
+            <h3>Partite <a th:href="@{/admin/partita/nuova}" class="btn-sm">+ Aggiungi</a></h3>
+            <table>
+                <tr><th>Data</th><th>Match</th><th>Risultato</th><th>Stato</th><th>Azioni</th></tr>
+                <tr th:each="p : ${partite}">
+                    <td th:text="${#temporals.format(p.dataEOra, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${p.squadraCasa.nome + ' vs ' + p.squadraTrasferta.nome}"></td>
+                    <td th:text="${p.goalsHome + ' - ' + p.goalsAway}"></td>
+                    <td th:text="${p.stato}"></td>
+                    <td>
+                        <a th:href="@{'/admin/partita/risultato/' + ${p.id}}" class="btn-sm">Aggiorna Risultato</a>
+                        <a th:href="@{'/admin/partita/elimina/' + ${p.id}}" class="btn-sm" style="color: red; border-color: red;" onclick="return confirm('Eliminare partita?');">Elimina</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </main>
 </body>
