@@ -1,9 +1,9 @@
 package it.uniroma3.siw.siw_calcio.controller;
 
-package com.tuoprogetto.siwcalcio.controller;
 
-import com.tuoprogetto.siwcalcio.service.TorneoService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import it.uniroma3.siw.siw_calcio.service.TorneoService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TorneoController {
 
-    @Autowired
-    private TorneoService torneoService;
+    private final TorneoService torneoService;
+
+    TorneoController(TorneoService torneoService) {
+        this.torneoService = torneoService;
+    }
 
     @GetMapping("/tornei")
     public String mostraTornei(Model model) {
