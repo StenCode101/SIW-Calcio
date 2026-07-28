@@ -55,6 +55,30 @@
                 </tr>
             </tbody>
         </table>
+        <div class="torneo-classifica-section" style="margin-top: 30px;">
+    <h3>🏆 Classifica Torneo</h3>
+    
+    <table style="width: 100%; text-align: left; margin-top: 15px; border-collapse: collapse;" border="1">
+        <thead style="background-color: #f8f9fa;">
+            <tr>
+                <th style="padding: 8px; text-align: center; width: 50px;">Pos</th>
+                <th style="padding: 8px;">Squadra</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Itera direttamente sulla lista di squadre già ordinata -->
+            <tr th:each="squadra, stat : ${classifica}">
+                <td style="padding: 8px; text-align: center; font-weight: bold;" th:text="${stat.count}"></td>
+                
+                <!-- Nome della squadra -->
+                <td style="padding: 8px;" th:text="${squadra.nome}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(classifica)}">
+                <td colspan="2" style="text-align: center; padding: 15px;">Nessuna squadra presente in questo torneo.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
     </main>
 </body>
 </html>
