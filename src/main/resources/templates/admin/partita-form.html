@@ -43,6 +43,14 @@
                 <option value="PLAYED">Giocata (PLAYED)</option>
             </select><br>
 
+            <!-- Nuova Sezione Arbitro -->
+            <label>Arbitro:</label>
+            <select th:field="*{arbitro}" style="width: 100%; margin-bottom: 15px;">
+                <!-- Opzione vuota se l'arbitro non è ancora stato designato -->
+                <option value="">-- Da definire --</option>
+                <option th:each="a : ${arbitri}" th:value="${a.id}" th:text="${a.nome + ' ' + a.cognome}"></option>
+            </select><br>
+
             <button type="submit" class="btn btn-primary">Registra Partita</button>
             <a th:href="@{/admin/dashboard}">Annulla</a>
         </form>

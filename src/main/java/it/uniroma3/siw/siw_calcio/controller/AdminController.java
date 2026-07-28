@@ -107,6 +107,7 @@ public class AdminController {
         model.addAttribute("partita", new Partita());
         model.addAttribute("tornei", torneoService.trovaTutti());
         model.addAttribute("squadre", squadraService.trovaTutte());
+        model.addAttribute("arbitri", arbitroService.trovaTutti());
         return "admin/partita-form";
     }
 
@@ -121,6 +122,7 @@ public class AdminController {
         model.addAttribute("partita", partitaService.trovaPerId(id));
         model.addAttribute("tornei", torneoService.trovaTutti());
         model.addAttribute("squadre", squadraService.trovaTutte());
+        model.addAttribute("arbitri", arbitroService.trovaTutti());
         return "admin/partita-form";
     }
 

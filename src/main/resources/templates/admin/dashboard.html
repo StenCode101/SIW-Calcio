@@ -108,21 +108,23 @@
             <table>
                 <tr>
                     <th>Data</th>
-                    <th>Luogo</th> <!-- Nuova colonna intestazione -->
+                    <th>Luogo</th>
                     <th>Match</th>
                     <th>Risultato</th>
                     <th>Stato</th>
+                    <th>Arbitro</th> <!-- Nuova colonna -->
                     <th>Azioni</th>
                 </tr>
                 <tr th:each="p : ${partite}">
                     <td th:text="${#temporals.format(p.dataEOra, 'dd/MM/yyyy HH:mm')}"></td>
-                    
-                    <!-- Nuova colonna per il luogo della partita -->
                     <td th:text="${p.luogo}"></td>
-                    
                     <td th:text="${p.squadraCasa.nome + ' vs ' + p.squadraTrasferta.nome}"></td>
                     <td th:text="${p.goalsHome + ' - ' + p.goalsAway}"></td>
                     <td th:text="${p.stato}"></td>
+                    
+                    <!-- Mostra il nome dell'arbitro se presente, altrimenti 'Da definire' -->
+                    <td th:text="${p.arbitro != null ? p.arbitro.nome + ' ' + p.arbitro.cognome : 'Da definire'}"></td>
+                    
                     <td style="padding: 8px; display: flex; gap: 10px;">
                         <a th:href="@{/admin/partita/modifica/{id}(id=${p.id})}" class="btn btn-outline" style="background-color: transparent; color: black; border: 1px solid black; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 14px;">Modifica</a>
                         <a th:href="@{/admin/partita/elimina/{id}(id=${p.id})}" class="btn btn-outline" style="background-color: transparent; color: #dc3545; border: 1px solid #dc3545; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 14px;">Elimina</a>
