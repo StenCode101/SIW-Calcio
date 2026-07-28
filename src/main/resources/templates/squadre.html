@@ -20,7 +20,7 @@
                 <h3 th:text="${squadra.nome}">Nome Squadra</h3>
                 <p><strong>Città:</strong> <span th:text="${squadra.citta}">Roma</span></p>
                 <p><strong>Fondazione:</strong> <span th:text="${squadra.annoDiFondazione}">2010</span></p>
-                <a href="#" class="card-link">Vedi Giocatori</a>
+                <a th:href="@{/squadre/{id}/giocatori(id=${squadra.id})}" class="card-link">Vedi Giocatori &rarr;</a>
             </div>
         </div>
     </main>

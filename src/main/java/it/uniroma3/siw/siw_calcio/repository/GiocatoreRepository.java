@@ -14,4 +14,5 @@ public interface GiocatoreRepository extends JpaRepository<Giocatore, Long> {
     
     // Trova tutti i giocatori che appartengono a una specifica squadra
     List<Giocatore> findBySquadra(Squadra squadra);
+
 }

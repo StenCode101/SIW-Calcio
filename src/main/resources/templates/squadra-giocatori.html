@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rosa Squadra - SIW Calcio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a th:href="@{/}">⚽ SIW Calcio</a></div>
+        <ul class="nav-links">
+            <li><a th:href="@{/squadre}">&larr; Torna alle Squadre</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- Mostra dinamicamente il nome della squadra -->
+        <h2>Rosa della squadra: <span th:text="${squadra.nome}">Nome Squadra</span></h2>
+        
+        <table style="width: 100%; text-align: left; margin-top: 20px;" border="1">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Ruolo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Cicla tra i giocatori e li mostra -->
+                <tr th:each="giocatore : ${giocatori}">
+                    <td th:text="${giocatore.nome}">Mario</td>
+                    <td th:text="${giocatore.cognome}">Rossi</td>
+                    <td th:text="${giocatore.ruolo}">Attaccante</td>
+                </tr>
+                <!-- Mostra questo messaggio se la squadra non ha ancora giocatori registrati -->
+                <tr th:if="${#lists.isEmpty(giocatori)}">
+                    <td colspan="3" style="text-align: center; padding: 15px;">Nessun giocatore registrato per questa squadra.</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
