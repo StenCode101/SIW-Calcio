@@ -1,29 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="[http://www.thymeleaf.org](http://www.thymeleaf.org)">
-<head><title>Gestione Giocatore</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestione Giocatore - Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 <body>
-    <div class="container" style="max-width: 500px; margin-top: 50px;">
+    <main class="container">
         <h2>Gestione Giocatore</h2>
-        <form th:action="@{/admin/giocatore/salva}" th:object="${giocatore}" method="post">
-            <input type="hidden" th:field="*{id}" />
-            <label>Nome:</label>
-            <input type="text" th:field="*{nome}" required style="width: 100%; margin-bottom: 15px;"><br>
+        <form th:action="@{/admin/giocatore/salva}" th:object="${giocatore}" method="post" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+            <input type="hidden" th:field="*{id}">
             
-            <label>Cognome:</label>
-            <input type="text" th:field="*{cognome}" required style="width: 100%; margin-bottom: 15px;"><br>
+            <div>
+                <label>Nome:</label><br>
+                <input type="text" th:field="*{nome}" required style="width: 100%; padding: 8px;">
+            </div>
             
-            <label>Ruolo:</label>
-            <input type="text" th:field="*{ruolo}" required style="width: 100%; margin-bottom: 15px;"><br>
+            <div>
+                <label>Cognome:</label><br>
+                <input type="text" th:field="*{cognome}" required style="width: 100%; padding: 8px;">
+            </div>
+
+            <div>
+                <label>Data di Nascita:</label><br>
+                <input type="date" th:field="*{dataDiNascita}" required style="width: 100%; padding: 8px;">
+            </div>
+
+            <div>
+                <label>Altezza (in cm):</label><br>
+                <input type="number" th:field="*{altezza}" placeholder="es. 185" required style="width: 100%; padding: 8px;">
+            </div>
             
-            <label>Assegna a Squadra:</label>
-            <select th:field="*{squadra}" style="width: 100%; margin-bottom: 15px;">
-                <option value="">Nessuna</option>
-                <option th:each="sq : ${squadre}" th:value="${sq.id}" th:text="${sq.nome}"></option>
-            </select><br>
+            <div>
+                <label>Ruolo:</label><br>
+                <input type="text" th:field="*{ruolo}" required style="width: 100%; padding: 8px;">
+            </div>
             
-            <button type="submit" class="btn btn-primary">Salva Giocatore</button>
-            <a th:href="@{/admin/dashboard}">Annulla</a>
+            <div>
+                <label>Squadra:</label><br>
+                <select th:field="*{squadra.id}" style="width: 100%; padding: 8px;">
+                    <option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}"></option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="padding: 10px; font-weight: bold;">Salva Giocatore</button>
         </form>
-    </div>
+        <div style="margin-top: 15px;">
+            <a th:href="@{/admin/dashboard}">&larr; Annulla e Torna Indietro</a>
+        </div>
+    </main>
 </body>
 </html>

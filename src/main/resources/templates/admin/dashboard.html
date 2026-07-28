@@ -37,31 +37,67 @@
         <!-- SEZIONE SQUADRE -->
         <div class="admin-section">
             <h3>Squadre <a th:href="@{/admin/squadra/nuova}" class="btn-sm">+ Aggiungi</a></h3>
-            <table>
-                <tr><th>Nome</th><th>Città</th><th>Azioni</th></tr>
-                <tr th:each="s : ${squadre}">
-                    <td th:text="${s.nome}"></td>
-                    <td th:text="${s.citta}"></td>
-                    <td>
-                        <a th:href="@{'/admin/squadra/modifica/' + ${s.id}}" class="btn-sm">Modifica</a>
-                        <a th:href="@{'/admin/squadra/elimina/' + ${s.id}}" class="btn-sm" style="color: red; border-color: red;" onclick="return confirm('Sicuro di eliminare?');">Elimina</a>
-                    </td>
-                </tr>
+            <table style="width: 100%; text-align: left; margin-top: 15px; border-collapse: collapse;" border="1">
+                <thead style="background-color: #f8f9fa;">
+                    <tr>
+                        <th style="padding: 8px;">Nome Squadra</th>
+                        <th style="padding: 8px;">Città</th>
+                        <th style="padding: 8px;">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="s : ${squadre}">
+                        <td style="padding: 8px;"><strong th:text="${s.nome}"></strong></td>
+                        
+                        <!-- Nuova colonna Città -->
+                        <td style="padding: 8px;" th:text="${s.citta}"></td>
+                        
+                        <!-- Bottoni con lo stile unificato -->
+                        <td style="padding: 8px; display: flex; gap: 10px;">
+                            <a th:href="@{/admin/squadra/modifica/{id}(id=${s.id})}" class="btn btn-outline" style="background-color: transparent; color: black; border: 1px solid black; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 14px;">Modifica</a>
+                            
+                            <a th:href="@{/admin/squadra/elimina/{id}(id=${s.id})}" class="btn btn-outline" style="background-color: transparent; color: #dc3545; border: 1px solid #dc3545; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 14px;">Elimina</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(squadre)}">
+                        <td colspan="3" style="text-align: center; padding: 15px;">Nessuna squadra registrata.</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
         <!-- SEZIONE GIOCATORI -->
         <div class="admin-section">
             <h3>Giocatori <a th:href="@{/admin/giocatore/nuovo}" class="btn-sm">+ Aggiungi</a></h3>
-            <table>
-                <tr><th>Nome</th><th>Cognome</th><th>Squadra</th><th>Azioni</th></tr>
-                <tr th:each="g : ${giocatori}">
-                    <td th:text="${g.nome}"></td>
-                    <td th:text="${g.cognome}"></td>
-                    <td th:text="${g.squadra != null ? g.squadra.nome : 'Nessuna'}"></td>
-                    <td><a th:href="@{'/admin/giocatore/modifica/' + ${g.id}}" class="btn-sm">Modifica</a></td>
-                </tr>
-            </table>
+            <table style="width: 100%; text-align: left; margin-top: 15px; border-collapse: collapse;" border="1">
+                <thead style="background-color: #f8f9fa;">
+                    <tr>
+                        <th style="padding: 8px;">Giocatore</th>
+                        <th style="padding: 8px;">Ruolo</th>
+                        <th style="padding: 8px;">Data di Nascita</th>
+                        <th style="padding: 8px;">Altezza</th>
+                        <th style="padding: 8px;">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="g : ${giocatori}">
+                        <td style="padding: 8px;">
+                            <strong th:text="${g.nome} + ' ' + ${g.cognome}"></strong>
+                        </td>
+                        <td style="padding: 8px;" th:text="${g.ruolo}"></td>
+                        <td style="padding: 8px;" th:text="${g.dataDiNascita}"></td>
+                        <td style="padding: 8px;" th:text="${g.altezza} + ' cm'"></td>
+                        
+                        <!-- Bottone Modifica con lo stile unificato -->
+                        <td style="padding: 8px;">
+                            <a th:href="@{/admin/giocatore/modifica/{id}(id=${g.id})}" class="btn btn-outline" style="background-color: transparent; color: black; border: 1px solid black; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 14px;">Modifica</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(giocatori)}">
+                        <td colspan="5" style="text-align: center; padding: 15px;">Nessun giocatore registrato.</td>
+                    </tr>
+                </tbody>
+</table>
         </div>
 
         <!-- SEZIONE PARTITE -->
