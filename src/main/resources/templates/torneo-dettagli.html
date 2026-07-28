@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dettagli Torneo - SIW Calcio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><a th:href="@{/}">⚽ SIW Calcio</a></div>
+        <ul class="nav-links">
+            <li><a th:href="@{/tornei}">&larr; Torna ai Tornei</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- Nome, Anno e Descrizione -->
+        <h2><span th:text="${torneo.nome}">Nome Torneo</span> (<span th:text="${torneo.anno}">Anno</span>)</h2>
+        <p style="font-size: 16px; margin-top: 10px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;" th:text="${torneo.descrizione}"></p>
+
+        <hr style="margin: 30px 0; border: 1px solid #ddd;">
+
+        <!-- Elenco Squadre Partecipanti -->
+        <h3>🛡️ Squadre Partecipanti</h3>
+        <ul style="list-style-type: none; padding: 0; margin-top: 15px;">
+            <li th:each="squadra : ${squadre}" style="margin-bottom: 10px; display: flex; align-items: center; gap: 15px;">
+                <strong th:text="${squadra.nome}" style="font-size: 18px;"></strong> 
+                
+                <!-- Link alla rosa dei giocatori -->
+                <a th:href="@{/squadre/{id}/giocatori(id=${squadra.id})}" class="btn btn-outline" style="background-color: transparent; color: black; border: 1px solid black; padding: 3px 8px; border-radius: 5px; text-decoration: none; font-size: 13px;">Vedi Rosa</a>
+            </li>
+        </ul>
+        <p th:if="${#lists.isEmpty(squadre)}">Nessuna squadra ha ancora disputato partite in questo torneo.</p>
+
+        <hr style="margin: 30px 0; border: 1px solid #ddd;">
+
+        <!-- Elenco Partite e Risultati -->
+        <h3>📅 Calendario e Risultati</h3>
+        <table style="width: 100%; text-align: left; margin-top: 15px; border-collapse: collapse;" border="1">
+            <thead style="background-color: #f8f9fa;">
+                <tr>
+                    <th style="padding: 10px; text-align: right; width: 40%;">Squadra Casa</th>
+                    <th style="padding: 10px; text-align: center; width: 20%;">Risultato</th>
+                    <th style="padding: 10px; text-align: left; width: 40%;">Squadra Trasferta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="partita : ${partite}">
+                    <td style="padding: 10px; text-align: right;" th:text="${partita.squadraCasa.nome}"></td>
+                    <td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px;" th:text="${partita.goalsHome} + ' - ' + ${partita.goalsAway}"></td>
+                    <td style="padding: 10px; text-align: left;" th:text="${partita.squadraTrasferta.nome}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(partite)}">
+                    <td colspan="3" style="text-align: center; padding: 15px;">Nessuna partita in programma per questo torneo.</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

@@ -5,8 +5,6 @@ import it.uniroma3.siw.siw_calcio.model.Squadra;
 import it.uniroma3.siw.siw_calcio.model.Partita;
 import it.uniroma3.siw.siw_calcio.service.TorneoService;
 import it.uniroma3.siw.siw_calcio.service.PartitaService;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,13 +21,11 @@ public class TorneoController {
 
     private final PartitaService partitaService;
 
-
-    TorneoController(PartitaService partitaService, TorneoService torneoService) {
-        this.partitaService = partitaService;
+    TorneoController(TorneoService torneoService, PartitaService partitaService) {
         this.torneoService = torneoService;
+        this.partitaService = partitaService;
     }
 
-    
     // Pagina con l'elenco di tutti i tornei
     @GetMapping("/tornei")
     public String mostraTornei(Model model) {

@@ -10,28 +10,27 @@
         <div class="logo"><a th:href="@{/}">⚽ SIW Calcio</a></div>
         <ul class="nav-links">
             <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/squadre}">Squadre</a></li>
+            <li><a th:href="@{/login}">Area Admin</a></li>
         </ul>
     </nav>
 
     <main class="container">
         <h2>Elenco Tornei</h2>
-        <!-- La tabella si popolerà dinamicamente se c'è una lista 'tornei' passata dal controller -->
-        <table style="width: 100%; text-align: left; margin-top: 20px;" border="1">
-            <thead>
-                <tr>
-                    <th>Nome Torneo</th>
-                    <th>Anno</th>
-                    <th>Descrizione</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="torneo : ${tornei}">
-                    <td th:text="${torneo.nome}">Campionato Estivo</td>
-                    <td th:text="${torneo.anno}">2026</td>
-                    <td th:text="${torneo.descrizione}">Torneo a 8 squadre</td>
-                </tr>
-            </tbody>
-        </table>
+        
+        <!-- Stessa griglia a Card usata per le squadre -->
+        <div class="features" style="margin-top: 20px;">
+            <div class="card" th:each="torneo : ${tornei}">
+                <h3 th:text="${torneo.nome}">Nome Torneo</h3>
+                <p style="margin-bottom: 15px;">Anno: <strong th:text="${torneo.anno}">2026</strong></p>
+                
+                <a th:href="@{/tornei/{id}(id=${torneo.id})}" class="btn btn-primary" style="text-decoration: none; padding: 8px 12px; border-radius: 5px; font-weight: bold;">Vedi Dettagli &rarr;</a>
+            </div>
+        </div>
+        
+        <div th:if="${#lists.isEmpty(tornei)}" style="margin-top: 20px;">
+            <p>Nessun torneo disponibile al momento.</p>
+        </div>
     </main>
 </body>
 </html>

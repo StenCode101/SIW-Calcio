@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="[http://www.thymeleaf.org](http://www.thymeleaf.org)">
-<head><title>Registra Partita</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registra Partita</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 <body>
     <div class="container" style="max-width: 500px; margin-top: 50px;">
         <h2>Nuova Partita</h2>
@@ -9,6 +12,9 @@
             
             <label>Data e Ora:</label>
             <input type="datetime-local" th:field="*{dataEOra}" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label>Luogo:</label>
+            <input type="text" th:field="*{luogo}" placeholder="Es. Stadio Olimpico" required style="width: 100%; margin-bottom: 15px;"><br>
             
             <label>Torneo:</label>
             <select th:field="*{torneo}" required style="width: 100%; margin-bottom: 15px;">
@@ -23,6 +29,18 @@
             <label>Squadra Trasferta:</label>
             <select th:field="*{squadraTrasferta}" required style="width: 100%; margin-bottom: 15px;">
                 <option th:each="sq : ${squadre}" th:value="${sq.id}" th:text="${sq.nome}"></option>
+            </select><br>
+
+            <label>Gol Squadra Casa:</label>
+            <input type="number" th:field="*{goalsHome}" value="0" min="0" style="width: 100%; margin-bottom: 15px;"><br>
+
+            <label>Gol Squadra Trasferta:</label>
+            <input type="number" th:field="*{goalsAway}" value="0" min="0" style="width: 100%; margin-bottom: 15px;"><br>
+
+            <label>Stato Partita:</label>
+            <select th:field="*{stato}" required style="width: 100%; margin-bottom: 15px;">
+                <option value="SCHEDULED">Da Giocare (SCHEDULED)</option>
+                <option value="PLAYED">Giocata (PLAYED)</option>
             </select><br>
 
             <button type="submit" class="btn btn-primary">Registra Partita</button>

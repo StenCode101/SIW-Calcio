@@ -16,12 +16,14 @@ public class AdminController {
     private final SquadraService squadraService;
     private final GiocatoreService giocatoreService;
     private final PartitaService partitaService;
+    private final ArbitroService arbitroService;
 
-    AdminController(TorneoService torneoService, SquadraService squadraService, GiocatoreService giocatoreService, PartitaService partitaService) {
+    AdminController(TorneoService torneoService, SquadraService squadraService, GiocatoreService giocatoreService, PartitaService partitaService, ArbitroService arbitroService) {
         this.torneoService = torneoService;
         this.squadraService = squadraService;
         this.giocatoreService = giocatoreService;
         this.partitaService = partitaService;
+        this.arbitroService = arbitroService;
     }
 
     @GetMapping("/dashboard")
@@ -30,6 +32,7 @@ public class AdminController {
         model.addAttribute("squadre", squadraService.trovaTutte());
         model.addAttribute("giocatori", giocatoreService.trovaTutti());
         model.addAttribute("partite", partitaService.trovaTutte());
+        model.addAttribute("arbitri", arbitroService.trovaTutti());
         return "admin/dashboard";
     }
 
@@ -125,5 +128,24 @@ public class AdminController {
     public String eliminaPartita(@PathVariable("id") Long id) {
         partitaService.eliminaPartita(id);
         return "redirect:/admin/dashboard";
+    }
+
+    // --- ARBITRO ---
+    @GetMapping("/arbitro/nuovo")
+    public String nuovoArbitro(Model model) {
+        model.addAttribute("arbitro", new Arbitro());
+        return "admin/arbitro-form";
+    }
+
+    @PostMapping("/arbitro/salva")
+    public String salvaArbitro(@ModelAttribute("arbitro") Arbitro arbitro) {
+        arbitroService.salvaArbitro(arbitro);
+        return "redirect:/admin/dashboard";
+    }
+
+    @GetMapping("/arbitro/modifica/{id}")
+    public String modificaArbitro(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("arbitro", arbitroService.trovaPerId(id));
+        return "admin/arbitro-form";
     }
 }

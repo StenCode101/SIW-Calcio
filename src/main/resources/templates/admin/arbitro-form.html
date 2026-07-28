@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestione Arbitro</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container" style="max-width: 500px; margin-top: 50px;">
+        <h2>Gestione Arbitro</h2>
+        <form th:action="@{/admin/arbitro/salva}" th:object="${arbitro}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome}" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label>Cognome:</label>
+            <input type="text" th:field="*{cognome}" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <label>Codice Arbitrale:</label>
+            <input type="text" th:field="*{codiceArbitrale}" placeholder="Es. ARB-123" required style="width: 100%; margin-bottom: 15px;"><br>
+            
+            <button type="submit" class="btn btn-primary">Salva Arbitro</button>
+            <a th:href="@{/admin/dashboard}">Annulla</a>
+        </form>
+    </div>
+</body>
+</html>
