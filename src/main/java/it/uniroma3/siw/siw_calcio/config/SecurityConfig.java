@@ -12,7 +12,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -22,7 +21,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/tornei", "/tornei/**", "/squadre", "/squadre/**", "/partite", "/login", "/register", "/css/**").permitAll()               
+                .requestMatchers("/", "/tornei", "/tornei/**", "/squadre", "/squadre/**", "/partite", "/login", "/register", "/css/**").permitAll()              
+                // 👇 AGGIUNTE PER LE PARTITE E I COMMENTI 👇
+                .requestMatchers("/partita/{id}").permitAll()
+                .requestMatchers("/partita/*/commenta").authenticated()
+                // ------------------------------------------
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
             )

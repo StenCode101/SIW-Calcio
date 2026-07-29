@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dettagli Partita</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container" style="max-width: 700px; margin-top: 30px;">
+        <h2>⚽ Dettaglio Partita</h2>
+        
+        <div class="card" style="padding: 20px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 20px;">
+            <p><strong>Data e Ora:</strong> <span th:text="${#temporals.format(partita.dataEOra, 'dd/MM/yyyy HH:mm')}"></span></p>
+            <p><strong>Luogo:</strong> <span th:text="${partita.luogo}"></span></p>
+            <p><strong>Match:</strong> <span th:text="${partita.squadraCasa.nome + ' vs ' + partita.squadraTrasferta.nome}"></span></p>
+            <p><strong>Risultato:</strong> <span th:text="${partita.goalsHome + ' - ' + partita.goalsAway}"></span></p>
+            <p><strong>Stato:</strong> <span th:text="${partita.stato}"></span></p>
+            <p th:if="${partita.arbitro != null}"><strong>Arbitro:</strong> <span th:text="${partita.arbitro.nome + ' ' + partita.arbitro.cognome}"></span></p>
+        </div>
+
+        <hr>
+
+        <!-- è la riga che mi consente di fare mostrare il contenuto solo se l'utente è loggato -->
+        <div th:if="${utenteCorrente != null}">
+            <h3>💬 Commenti degli utenti</h3>
+
+            <!-- Lista dei commenti -->
+            <div th:each="c : ${commenti}" style="background: #f9f9f9; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                <p><strong th:text="${c.autore.username}"></strong> <small style="color: gray;" th:text="${#temporals.format(c.dataOra, 'dd/MM/yyyy HH:mm')}"></small></p>
+                
+                <!-- Testo del commento -->
+                <p th:text="${c.testo}" th:id="'testo-' + ${c.id}"></p>
+
+                <!-- Mostra il bottone "Modifica" SOLO se l'utente loggato è l'autore del commento -->
+                <div th:if="${c.autore.id == utenteCorrente.id}">
+                    <button type="button" th:onclick="'mostraFormModifica(' + ${c.id} + ')'" class="btn-sm">Modifica</button>
+                    
+                    <!-- Form nascosto per la modifica del singolo commento -->
+                    <form th:action="@{/partita/{id}/commenta(id=${partita.id})}" method="post" th:id="'form-modifica-' + ${c.id}" style="display:none; margin-top: 10px;">
+                        <input type="hidden" name="commentoId" th:value="${c.id}" />
+                        <textarea name="testo" th:text="${c.testo}" required style="width: 100%;" rows="2"></textarea>
+                        <button type="submit" class="btn btn-primary btn-sm">Salva Modifica</button>
+                    </form>
+                </div>
+            </div>
+
+            <div th:if="${#lists.isEmpty(commenti)}">
+                <p>Nessun commento presente. Sii il primo a commentare!</p>
+            </div>
+
+            <hr style="margin-top: 20px;">
+
+            <!-- Sezione per aggiungere un nuovo commento -->
+            <h4>Aggiungi un commento</h4>
+            <form th:action="@{/partita/{id}/commenta(id=${partita.id})}" method="post">
+                <textarea name="testo" placeholder="Scrivi un commento..." required style="width: 100%; height: 80px; margin-bottom: 10px;"></textarea><br>
+                <button type="submit" class="btn btn-primary">Pubblica Commento</button>
+            </form>
+        </div>
+
+        <!-- AVVISO PER UTENTI NON REGISTRATI -->
+        <div th:if="${utenteCorrente == null}" style="background: #f8f9fa; padding: 15px; border-radius: 5px; text-align: center; border: 1px solid #dee2e6;">
+            <p style="margin: 0;">I commenti e le discussioni sono riservati agli utenti registrati.</p>
+            <p style="margin-top: 5px;"><a th:href="@{/login}">Accedi</a> oppure <a th:href="@{/register}">registrati</a> per visualizzare e scrivere commenti su questa partita.</p>
+        </div>
+
+        <br>
+        <a th:href="@{/tornei/{id}(id=${partita.torneo.id})}">← Torna al Torneo</a>
+    </div>
+
+    <!-- Script JavaScript semplice per aprire/chiudere la casella di modifica del proprio commento -->
+    <script>
+        function mostraFormModifica(id) {
+            var form = document.getElementById('form-modifica-' + id);
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

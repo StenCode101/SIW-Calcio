@@ -49,6 +49,9 @@
                     <td style="padding: 10px; text-align: right;" th:text="${partita.squadraCasa.nome}"></td>
                     <td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px;" th:text="${partita.goalsHome} + ' - ' + ${partita.goalsAway}"></td>
                     <td style="padding: 10px; text-align: left;" th:text="${partita.squadraTrasferta.nome}"></td>
+                    <td>
+                        <a th:href="@{/partita/{id}(id=${partita.id})}">Dettagli & Commenti</a>
+                    </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(partite)}">
                     <td colspan="3" style="text-align: center; padding: 15px;">Nessuna partita in programma per questo torneo.</td>
