@@ -17,17 +17,15 @@ public interface SquadraRepository extends JpaRepository<Squadra, Long> {
     // Trova tutte le squadre di una determinata città
     List<Squadra> findByCitta(String citta);
 
-    // 1. STRATEGIA LAZY (Genera il problema N+1)
-    // È il metodo di default fornito da Spring Data, usiamo findAll() standard.
+   // Metodo base per recuperare tutte le squadre (usato da Lazy e Eager)
+    List<Squadra> findAll();
 
-    // 2. STRATEGIA JOIN FETCH
-    // Fa un'unica query forzando il caricamento dei giocatori tramite JPQL
-    @Query("SELECT s FROM Squadra s JOIN FETCH s.giocatori")
-    List<Squadra> findAllByJoinFetch();
+    // 1. Soluzione con JOIN FETCH
+    @Query("SELECT s FROM Squadra s LEFT JOIN FETCH s.giocatori")
+    List<Squadra> findAllWithGiocatori();
 
-    // 3. STRATEGIA ENTITY GRAPH
-    // Usa le API di JPA per dire dinamicamente di caricare anche "giocatori"
+    // 2. Soluzione con ENTITY GRAPH
     @EntityGraph(attributePaths = {"giocatori"})
     @Query("SELECT s FROM Squadra s")
-    List<Squadra> findAllByEntityGraph();
+    List<Squadra> findAllEntityGraph();
 }
